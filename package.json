@@ -1,0 +1,25 @@
+{
+  "name": "req",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive test/ --bail",
+    "test:watch": "npm test -- --watch",
+    "test:cov": "babel-node ./node_modules/.bin/isparta cover _mocha"
+  },
+  "author": "ahbing",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "chai": "^3.5.0",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6"
+  },
+  "dependencies": {
+    "ahbing-promise": "^1.0.0"
+  }
+}
