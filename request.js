@@ -3,6 +3,7 @@
  */
 
 import Response from './response';
+import Header from './header';
 import { assign, toUpper } from './util';
 
 export default class Request {
@@ -17,13 +18,13 @@ export default class Request {
     }
   }
   getUrl() {
-    return this.url;
+    // return this.url;
   }
   getBody() {
     return this.body;
   }
   responseWith() {
-    // return new Response();
+    return new Response();
   } 
 } 
 

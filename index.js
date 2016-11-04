@@ -1,7 +1,8 @@
 import Request from './request';
 import Response from './response';
-import Client from './client';
 import Promise from 'ahbing-promise';
+
+import client from './client';
 
 // middlewares
 import before from './middlewares/before';
@@ -17,10 +18,8 @@ const CUSTOM_HEADERS = { 'X-Requested-With': 'XMLHttpRequest' };
 const COMMON_HEADERS = { 'Accept': 'application/json, text/plain, */*' };
 const JSON_CONTENT_TYPE = { 'Content-Type': 'application/json;charset=utf-8' };
 
-
 export default function Req(options) { 
   let newOptions = assign(Req.options, options);
-  let client = Client();
   Req.interceptors.forEach((interceptor) => {
     client.use(interceptor);
   });

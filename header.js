@@ -2,9 +2,36 @@
  * Header 构造 http 头部
  */
 
+import { each } from './util';
+
 export default class Header {
   constructor(headers) {
     this.map = {};
-    // 遍历 headers 对象， 添加到 map 上；    
+    
+    each(headers, (value, key) => {
+      this.append(value, key);
+    });    
+  }
+
+  append(value, key) {
+    if (!this.has(key)) {
+      this.set(key, value);
+    }
+  }
+
+  has(key) {
+    return this.map.key;
+  }
+
+  set(key, value) {
+    this.map.key = value;
+  }
+
+  get(key) {
+    return this.map.key;
+  }
+
+  delete(key) {
+    delete this.map.key;
   }
 };

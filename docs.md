@@ -25,6 +25,7 @@ req.patch(url, body, {...options}).then(function(data) {});
   emulateJSON: Boolean, // 请求体的 Content-type 设置成 `application/x-www-form-urlencoded`
   timeout: Number, // 设置请求超时时间
   params: Object, // 作为 URL 参数发送的数据
+  credentials: Boolean, // 设置跨域请求是否发送 cookie 等凭证。
 }
 
 # 响应数据

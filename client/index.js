@@ -1,12 +1,12 @@
 import Promise from 'ahbing-promise';
-import xhr from './xhr';
+import xhrClient from './xhr';
 
-import { warn, isObject, isFunction } from './util';
+import { warn, isObject, isFunction } from './../util';
 
 const reqHandlers = [sendRequest];
 const resHandlers = [];
-const handler;
-const Client = function(request) {
+let handler;
+const client = function(request) {
   return new Promise((reslove) => {
     function exec() {
       handler = reqHandlers.pop();
@@ -39,14 +39,14 @@ const Client = function(request) {
     exec();
   }); 
 };
-Client.use = (handler) => {
+client.use = (handler) => {
   reqHandlers.push(handler);
 };
 
 const sendRequest = function(request, next) {
-  const client = request.client || xhr;
+  const sendClient = request.client || xhrClient;
   // 发送请求
-  next(client(request));
+  next(sendClient(request));
 };
 
-export default Client;
+export default client;

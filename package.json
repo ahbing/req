@@ -20,6 +20,6 @@
     "sinon": "^1.17.6"
   },
   "dependencies": {
-    "ahbing-promise": "^1.0.0"
+    "ahbing-promise": "^1.0.2"
   }
 }
