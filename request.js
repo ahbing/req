@@ -18,13 +18,14 @@ export default class Request {
     }
   }
   getUrl() {
+    // 解析 params 等等  生成 url
     // return this.url;
   }
   getBody() {
     return this.body;
   }
-  responseWith() {
+  responseWith(body, options) {
     return new Response();
-  } 
+  }
 } 
 
