@@ -20,8 +20,8 @@ const JSON_CONTENT_TYPE = { 'Content-Type': 'application/json;charset=utf-8' };
 
 export default function Req(options) { 
   let newOptions = assign(Req.options, options);
-  Req.interceptors.forEach((interceptor) => {
-    client.use(interceptor);
+  Req.middlewares.forEach((middleware) => {
+    client.use(middleware);
   });
   return client(new Request(newOptions)).then((response) => {
     response.ok ? response : Promise.reject(response);
@@ -41,7 +41,7 @@ Req.headers = {
 
 Req.options = {};
 
-Req.interceptors = [before, timeout, method, body, jsonp, header, cors];
+Req.middlewares = [before, timeout, method, body, jsonp, header, cors];
 
 [
   'get',

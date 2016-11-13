@@ -7,13 +7,13 @@ import { Promise } from 'ahbing-promise';
 
 export default function jsonpClient(request) {
   return new Primise((reslove) => {
-    const script = null;
-    const body = null;
-    const status = 0;
+    let script = null;
+    let body = null;
+    let status = 0;
     let name = request.jsonp || 'callback';
     let callback = '_jsonp' + Math.random().toString(36).substr(2);
 
-    const handler = ({type}) => {
+    const handler = ({ type }) => {
       if (type === 'load' && body !== null) {
         status = 200;
       } else if (type === 'error') {
