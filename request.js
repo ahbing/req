@@ -4,13 +4,14 @@
 
 import Response from './response';
 import Header from './header';
-import { assign, toUpper } from './util';
+import { toUpper } from './util';
+import Url from './url';
 
 export default class Request {
   constructor(options) {
     this.body = null;
     this.params = {};
-    assign(this, options, {
+    Object.assign(this, options, {
       method: toUpper(options.method) || 'GET',
     });
     if (!(this.header instanceof Header)) {
@@ -18,14 +19,14 @@ export default class Request {
     }
   }
   getUrl() {
-    // 解析 params 等等  生成 url
-    // return this.url;
+    // 解析 request.params 等等  生成 url
+    return Url(this);
   }
   getBody() {
     return this.body;
   }
   responseWith(body, options) {
-    return new Response();
+    return new Response(body, options);
   }
 } 
 

@@ -5,25 +5,26 @@
  * - 交给下一个中间件处理 next()
  */
 
-
-// const isSupportsCors = 'withCredentials' in new XMLHttpRequest();
+import Url from './../url';
+const isSupportsCors = 'withCredentials' in new XMLHttpRequest();
 
 function isCrossOrigin(request) {
-  // 解析 request => requestUrl
-  // 解析 location.href => originUrl
-  // @todo 解析函数
-  // const originUrl 
-  // const requestUrl;
-  // return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host)
-  return true;
-}
-if (!request.crossOrigin && isCrossOrigin(request)) {
-  request.crossOrigin = true;
+  console.log('request===', request);
+  const originUrl = Url.parse(location.href);
+  const requestUrl = Url.parse(Url(request));
+
+  return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host)
 }
 export default function cors(request, next) {
+  if (!request.crossOrigin && isCrossOrigin(request)) {
+    request.crossOrigin = true;
+  } 
   if (request.crossOrigin) {
     delete request.emulateHTTP;
   }
-  // console.log('request===', request);
+
+  if (!isSupportsCors) {
+    // XMLHttpRequest not support cors 
+  }
   next();
 }
