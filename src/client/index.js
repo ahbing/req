@@ -3,17 +3,20 @@ import xhrClient from './xhr';
 
 import { warn, isObject, isFunction } from './../util';
 
-const reqHandlers = [sendRequest];
-const resHandlers = [];
+let reqHandlers = [sendRequest];
+let resHandlers = [];
 let handler;
 const client = function(request) {
+  
   return new Promise((reslove) => {
     function exec() {
       handler = reqHandlers.pop();
-      if (handler && isFunction(handler)) {
+      
+      if (isFunction(handler)) {
         handler.call(null, request, next);
-      } else {
-        warn(`${handler}必须是一个函数`);
+        
+      } else if (handler) {
+        warn(`${handler} is not a function`);
         next();
       }
     }
@@ -41,9 +44,10 @@ client.use = (handler) => {
   reqHandlers.push(handler);
 };
 
-const sendRequest = function(request, next) {
+function sendRequest(request, next) {
   const sendClient = request.client || xhrClient;
   // 发送请求
+  console.log(request);
   next(sendClient(request));
 };
 

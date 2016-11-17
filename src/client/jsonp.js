@@ -3,10 +3,10 @@
  * https://en.wikipedia.org/wiki/JSONP
  */
 
-import { Promise } from 'ahbing-promise';
+import Promise from 'ahbing-promise';
 
 export default function jsonpClient(request) {
-  return new Primise((reslove) => {
+  return new Promise((reslove) => {
     let script = null;
     let body = null;
     let status = 0;
@@ -14,6 +14,7 @@ export default function jsonpClient(request) {
     let callback = '_jsonp' + Math.random().toString(36).substr(2);
 
     const handler = ({ type }) => {
+      console.log('type', type);
       if (type === 'load' && body !== null) {
         status = 200;
       } else if (type === 'error') {
@@ -27,6 +28,7 @@ export default function jsonpClient(request) {
     request.params[name] = callback; 
 
     window[callback] = (result) => {
+      console.log('result', result)
       body = JSON.stringify(result)
     };
 

@@ -14,9 +14,9 @@ export default function Url(request) {
   if (isString(root) && !url.match(/^(https?:)/)) {
     url = root + '/' + url
   }
-  url = url + '?' + query;
-  console.log(root)
-  console.log('url=======', url);
+  if (query) {
+    url = url + '?' + query;
+  }
   return url;
 }
 
@@ -41,7 +41,7 @@ Url.params = (obj) => {
   const params = [];
   const escape = encodeURIComponent;
 
-  params.add = (value, key) => {
+  params.add = (key, value) => {
     if (value == null) value = ''; 
     params.push(escape(key) + '=' + escape(value));
   };

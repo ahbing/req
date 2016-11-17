@@ -9,10 +9,8 @@ import Url from './../url';
 const isSupportsCors = 'withCredentials' in new XMLHttpRequest();
 
 function isCrossOrigin(request) {
-  console.log('request===', request);
   const originUrl = Url.parse(location.href);
   const requestUrl = Url.parse(Url(request));
-
   return (requestUrl.protocol !== originUrl.protocol || requestUrl.host !== originUrl.host)
 }
 export default function cors(request, next) {
@@ -22,7 +20,6 @@ export default function cors(request, next) {
   if (request.crossOrigin) {
     delete request.emulateHTTP;
   }
-
   if (!isSupportsCors) {
     // XMLHttpRequest not support cors 
   }

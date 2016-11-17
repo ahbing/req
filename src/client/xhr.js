@@ -1,20 +1,19 @@
 
 import Promise from 'ahbing-promise';
 
-import { isFunction } from './../util';
+import { isFunction, each } from './../util';
 
 export default function xhrClient(request) {
   return new Promise((reslove) => {
     const xhr = new XMLHttpRequest();
     const handler = function(event) {
-      // 生成 response 
-      const response = request.responseWith(
-        // xhr.response ...
-      );
-
+      // 生成 response
+      console.loga('event =====',event)
+      const response = request.responseWith();
+      console.log('response====', response);
       // 加工 response
 
-      reslove(response);
+      // reslove(response);
     };
 
     request.abort = () => xhr.abort();
@@ -30,7 +29,6 @@ export default function xhrClient(request) {
     if (request.credentials) {
       xhr.withCredentials = true;
     }
-
     xhr.open(request.method, request.getUrl(), true);
 
     // Http 请求各部分有指定顺序：
@@ -38,10 +36,10 @@ export default function xhrClient(request) {
     // XMLHttpRequest 实现通常之道调用 send() 方法才开始启动网络。 
     // 所有 setRequestHeader() 方法的调用必须在 open() 方法之后，send() 方法之前。
 
-    request.headers.forEach((value, key) => {
-      xhr.setRequestHeader(key, value);
+    each(request.header.map, (v, k) => {
+      xhr.setRequestHeader(k, v);
     });
-
+    
     xhr.onload = handler;
     xhr.onerror = handler;
     xhr.send(request.getBody());
