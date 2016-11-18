@@ -20,7 +20,7 @@ export default function Req(options) {
     client.use(middleware);
   });
   return client(new Request(newOptions)).then((response) => {
-    response.ok ? response : Promise.reject(response);
+    return response.ok ? Promise.resolve(response) : Promise.reject(response);
   }, (response) => {
     Promise.reject(response);
   });

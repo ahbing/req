@@ -22,9 +22,10 @@ export default function body(request, next) {
   }
 
   function bodyResHandler(response) {
-    const type = response.header.get('Content-Type');
+
     if (response.bodyText) {
-      const type = response.headers.get('Content-Type');      
+      const type = response.header.get('Content-Type');
+      console.log(type,'typetype')
       if (isString(type) && type.indexOf('application/json') === 0) {
         try {
           response.body = JSON.parse(response.bodyText);
@@ -34,7 +35,7 @@ export default function body(request, next) {
         }
       }
     }
-
+    console.log('body ====== response', response);
     return response;
   }
 

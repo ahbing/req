@@ -4,7 +4,7 @@
 
 import Response from './response';
 import Header from './header';
-import { toUpper } from './util';
+import { toUpper, assign } from './util';
 import Url from './url';
 
 export default class Request {
@@ -26,7 +26,7 @@ export default class Request {
     return this.body;
   }
   responseWith(body, options) {
-    return new Response(body, options);
+    return new Response(body, assign(options || {}, { url: this.getUrl() }));
   }
 } 
 

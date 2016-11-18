@@ -15,7 +15,7 @@ export default function jsonp(request, next) {
 
   function jsonpResHandler(response) {
     if (request.method === 'JSONP') {
-      return Promise.reslove(response.json()).then(function(json) {
+      return Promise.resolve(response.json()).then(function(json) {
         response.body = json;
         return response;
       })

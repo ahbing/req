@@ -11,11 +11,14 @@ export default class Response {
     this.header = new Header(header);
     this.status = status;
     this.ok = status >= 200 && status < 300;
-    this.statusText = statusText;
+    this.statusText = statusText || '';
     this.body = body;
     if (isString(body)) {
       this.bodyText = body;
     }
+  }
+  json() {
+    return JSON.parse(JSON.stringify(this.body));
   }
 }
 

@@ -8,7 +8,7 @@ let resHandlers = [];
 let handler;
 const client = function(request) {
   
-  return new Promise((reslove) => {
+  return new Promise((resolve) => {
     function exec() {
       handler = reqHandlers.pop();
       
@@ -24,13 +24,14 @@ const client = function(request) {
     function next(response) {
       if (isFunction(response)) {
         resHandlers.unshift(response);
-      } else if (isObject(response)) {
-        resHandlers.push(reslove);  // 最后 reslove(response)
+      } else if (isObject(response)) {        
         resHandlers.forEach((handler) => {
-          response = Promise.reslove(response).then((response) => {
+          response = Promise.resolve(response).then((response) => {
             return handler.call(null, response);
           });
         });
+
+        return resolve(response);
       } 
       exec();
     }
@@ -47,7 +48,6 @@ client.use = (handler) => {
 function sendRequest(request, next) {
   const sendClient = request.client || xhrClient;
   // 发送请求
-  console.log(request);
   next(sendClient(request));
 };
 

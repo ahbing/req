@@ -12,5 +12,6 @@ export default function timeout(request, next) {
   }
   next((response) => {
     timeout && clearTimeout(timeout);
+    return response;
   });
 }
