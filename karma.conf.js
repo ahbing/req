@@ -19,7 +19,7 @@ var webpackConfig = {
 };
 
 module.exports = function(config) {
-  config.set({
+  var configuration = {
     // 测试框架
     frameworks: ['mocha'],
     // 测试需要加载的资源
@@ -38,9 +38,22 @@ module.exports = function(config) {
       noInfo: true
     },
     // 插件列表
-    plugins: ['karma-mocha', 'karma-phantomjs-launcher', 'karma-chrome-launcher', 'karma-coverage', 'karma-spec-reporter', 'karma-webpack', 'karma-sourcemap-loader', 'karma-phantomjs-launcher'],
+    plugins: ['karma-mocha', 'karma-chrome-launcher', 'karma-coverage', 'karma-spec-reporter', 'karma-webpack', 'karma-sourcemap-loader', 'karma-phantomjs-launcher'],
     // 测试的浏览器
     browsers: ['Chrome'],
+    customLaunchers: {
+      PhantomJS_custom: {
+        base: 'PhantomJS',
+        options: {
+          windowName: 'my-window',
+          settings: {
+            webSecurityEnabled: false
+          }
+        },
+        flags: ['--load-images=true'],
+        debug: true
+      }
+    },
     // 生成哪些测试报告
     reporters: ['spec', 'coverage'],
     // 覆盖率报告生成规则
@@ -57,5 +70,13 @@ module.exports = function(config) {
         type: 'text-summary'
       }]
     }
-  });
+  };
+
+  if (process.env.TRAVIS) {
+    configuration.browsers = ['PhantomJS', 'PhantomJS_custom'];
+    configuration.phantomjsLauncher = {
+      exitOnResourceError: true
+    }
+  }
+  config.set(configuration);
 };

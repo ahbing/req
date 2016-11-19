@@ -1,5 +1,3 @@
-import Req from './../index';
-import Promise from 'ahbing-promise';
 import chai from 'chai';
 const expect = chai.expect;
 
