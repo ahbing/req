@@ -6,6 +6,7 @@
  */
 
 import Url from './../url';
+import xdr from './../client/xdr';
 const isSupportsCors = 'withCredentials' in new XMLHttpRequest();
 
 function isCrossOrigin(request) {
@@ -21,7 +22,7 @@ export default function cors(request, next) {
     delete request.emulateHTTP;
   }
   if (!isSupportsCors) {
-    // XMLHttpRequest not support cors 
+    request.client = xdr;
   }
   next();
 }
