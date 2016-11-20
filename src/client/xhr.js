@@ -1,19 +1,24 @@
 
 import Promise from 'ahbing-promise';
 
-import { isFunction, each } from './../util';
+import { isFunction, trim, each } from './../util';
 
 export default function xhrClient(request) {
-  return new Promise((reslove) => {
+  return new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
     const handler = function(event) {
       // 生成 response
-      console.loga('event =====',event)
-      const response = request.responseWith();
-      console.log('response====', response);
-      // 加工 response
-
-      // reslove(response);
+      const response = request.responseWith(
+        'response' in xhr ? xhr.response : xhr.responseText, {
+          status: xhr.status,
+          statusText: xhr.statusText
+        }
+      ); 
+      each(trim(xhr.getAllResponseHeaders()).split('\n'), (row) => {
+        let colonIndex = row.indexOf(":");
+        response.header.append(row.slice(colonIndex + 1), row.slice(0, colonIndex));  
+      });
+      resolve(response);
     };
 
     request.abort = () => xhr.abort();

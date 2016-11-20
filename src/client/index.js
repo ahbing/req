@@ -24,7 +24,7 @@ const client = function(request) {
     function next(response) {
       if (isFunction(response)) {
         resHandlers.unshift(response);
-      } else if (isObject(response)) {        
+      } else if (isObject(response)) {   
         resHandlers.forEach((handler) => {
           response = Promise.resolve(response).then((response) => {
             return handler.call(null, response);

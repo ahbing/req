@@ -10,6 +10,10 @@ export function toLower(v) {
   return v.toLowerCase();
 }
 
+export function trim(str) {
+  return str.replace(/^\s*|\s*$/, '');
+}
+
 export function isFunction(v) {
   return typeof v === 'function';
 }

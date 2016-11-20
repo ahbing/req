@@ -20,6 +20,7 @@ export default function jsonp(request, next) {
         return response;
       })
     }
+    return response;
   }
   
   next(jsonpResHandler);

@@ -14,24 +14,24 @@ export default class Header {
   }
 
   append(value, key) {
-    if (!this.has(key)) {
+    if (key && !this.has(key)) {
       this.set(key, value);
     }
   }
 
   has(key) {
-    return this.map.key;
+    return this.map[key];
   }
 
   set(key, value) {
-    this.map.key = value;
+    this.map[key] = value;
   }
 
   get(key) {
-    return this.map.key;
+    return this.map[key];
   }
 
   delete(key) {
-    delete this.map.key;
+    delete this.map[key];
   }
 };
